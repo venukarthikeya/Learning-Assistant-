@@ -36,7 +36,7 @@ Client:
 ```env
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
-VITE_API_BASE_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5000/api
 ```
 
 Server:
@@ -68,4 +68,4 @@ All Gemini requests run only on the server. Each generated resource is stored in
 
 ## Deployment
 
-Deploy `client` to Vercel or Netlify and `server` to Render, Railway, or Fly. Set `VITE_API_BASE_URL` to the deployed API URL and update the server `CLIENT_URL` and Supabase Auth redirect URL to the deployed frontend.
+Deploy `client` to Vercel or Netlify and `server` to Render, Railway, or Fly. Set `VITE_API_URL` to the deployed API URL and update the server `CLIENT_URL` and Supabase Auth redirect URL to the deployed frontend.
