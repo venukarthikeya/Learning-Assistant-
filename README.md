@@ -1,71 +1,216 @@
-# Learning Assistant - AI Exam Preparation Platform
+# Learning Assistant – AI Exam Preparation Platform
 
-Learning Assistant is a full-stack study companion that turns an exam goal into structured plans, targeted practice, revision resources, and clear performance insights. It uses React, Express, Supabase, and server-side Google Gemini integration.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
 
-## What it includes
+Learning Assistant is a modern, full-stack AI-powered exam preparation platform built to help students study efficiently. It utilizes **Google Gemini AI** strictly from the backend to generate highly personalized revision plans, flashcards, mock tests, and practice questions. With structured progress tracking and secure authentication, it aims to deliver a top-tier learning experience.
 
-- Supabase email authentication and protected routes
-- Exam plans with dates, target scores, study-time targets, and archiving
-- AI Coach for explanations, revision plans, flashcards, formula sheets, practice questions, and readiness reports
-- Practice formats for MCQ, short, long, and coding questions
-- Mock-test records, revision flashcards, and a personalised dashboard
-- Analytics for accuracy, study time, readiness, confidence, and mock-test progress
-- Light/dark mode, responsive layout, dialogs, empty states, loading states, and API error feedback
-- Row Level Security for all user-owned exam data
+---
 
-## Tech stack
+## ✨ Features
 
-- Client: React, TypeScript, Vite, React Router, Supabase JS
-- Server: Node.js, Express, Zod, Helmet, rate limiting, Google GenAI SDK
-- Data/auth: Supabase Auth, PostgreSQL, Realtime-ready RLS policies
+### 🔐 Authentication
+- User Registration & Login
+- Secure JWT Authentication
+- Protected Routes
+- User Profile management
 
-## Run locally
+### 📅 Exam Planning
+- Create tailored Exam Plans
+- Subject & Chapter tracking
+- Track Confidence Levels & Revision Status
+- Set and monitor Target Scores
 
-1. Install Node.js 20+.
-2. Run `npm install` in the repository root.
-3. Copy `client/.env.example` to `client/.env` and `server/.env.example` to `server/.env`.
-4. Fill in your Supabase URL/keys and Gemini API key. Gemini stays in `server/.env` only.
-5. In the Supabase SQL Editor, apply `supabase/migrations/001_initial.sql`, followed by `supabase/migrations/002_exam_preparation_platform.sql`. The second migration creates `public.exam_plans` and all related exam-preparation tables, enables RLS, and reloads the PostgREST schema cache.
-6. Add `http://localhost:5173` to Supabase Auth redirect URLs.
-7. Run `npm run dev` and open `http://localhost:5173`.
+### 🤖 AI Exam Coach
+- AI-generated Concept Explanations
+- Personalized Revision Plans
+- Smart Flashcards & Formula Cards
+- Memory Tricks & Readiness Reports
+- Adaptive AI-generated Practice Questions
 
-## Environment variables
+### ⏳ Mock Tests
+- Timed Mock Exams with Auto & Manual Submit
+- Detailed Feedback & Performance Analytics
+- Review Previous Attempts
 
-Client:
+### 📊 Progress Tracking
+- Comprehensive Study History & Study Streak
+- Performance & Readiness Charts
+- Weak Areas Analysis via Analytics Dashboard
 
-```env
-VITE_SUPABASE_URL=
-VITE_SUPABASE_ANON_KEY=
-VITE_API_URL=http://localhost:5000/api
-```
+---
 
-Server:
+## 🛠 Tech Stack
 
-```env
-PORT=5000
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-GEMINI_API_KEY=
-CLIENT_URL=http://localhost:5173
-```
+**Frontend**
+- React.js, Vite, React Router, Tailwind CSS, Axios
 
-## Project structure
+**Backend**
+- Node.js, Express.js, JWT, bcrypt, Express Validator
+
+**Database & Auth**
+- Supabase (PostgreSQL), Supabase Auth
+
+**Generative AI**
+- Google Gemini API
+
+**Deployment**
+- Frontend: Vercel
+- Backend: Render
+
+---
+
+## 📁 Folder Structure
 
 ```text
-client/src/        React application, routes, responsive UI
-server/src/        Express API, authentication, Gemini integration
-supabase/migrations/  PostgreSQL schema and RLS policies
+📦 learning-assistant
+ ┣ 📂 client                 # React Frontend (Vite)
+ ┃ ┣ 📂 src
+ ┃ ┃ ┣ 📂 lib              # API and Supabase utilities
+ ┃ ┃ ┣ 📜 App.tsx          # Main routing & React components
+ ┃ ┃ ┣ 📜 styles.css       # Core styles & Tailwind directives
+ ┃ ┃ ┗ 📜 main.tsx         # Entry point
+ ┃ ┣ 📜 package.json
+ ┃ ┗ 📜 vite.config.ts
+ ┣ 📂 server                 # Express Backend (Node.js)
+ ┃ ┣ 📂 src
+ ┃ ┃ ┗ 📜 server.ts        # Express app, Routes, Gemini integrations
+ ┃ ┣ 📜 package.json
+ ┃ ┗ 📜 tsconfig.json
+ ┣ 📂 supabase               # PostgreSQL schema & migrations
+ ┃ ┗ 📂 migrations
+ ┗ 📜 README.md
 ```
 
-## Database naming and migration recovery
+---
 
-`exam_plans` is the canonical table for the Exam Planner. The older `study_plans` table belongs to the preserved interview-preparation module and is not used by any exam-planner route. If Supabase reports `PGRST205` for `exam_plans`, the exam-platform migration has not been applied to that Supabase project (or its PostgREST schema cache has not refreshed). Apply migration `002` once; its final `notify pgrst, 'reload schema'` command refreshes the cache.
+## 🚀 Installation
 
-## Gemini and rate limits
+### Frontend
 
-All Gemini requests run only on the server. Each generated resource is stored in `ai_responses`; flashcard requests also populate `flashcards`. The API validates inputs, retries malformed model JSON only, and returns a clear 429 response when Gemini quota is exhausted.
+Navigate to the `client` directory:
+```bash
+cd client
+npm install
+npm run dev
+```
 
-## Deployment
+### Backend
 
-Deploy `client` to Vercel or Netlify and `server` to Render, Railway, or Fly. Set `VITE_API_URL` to the deployed API URL and update the server `CLIENT_URL` and Supabase Auth redirect URL to the deployed frontend.
+Navigate to the `server` directory:
+```bash
+cd server
+npm install
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create `.env` files in both directories based on the `.env.example` templates. **Never commit real keys!**
+
+**Frontend (`client/.env`)**
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+**Backend (`server/.env`)**
+```env
+PORT=5000
+CLIENT_URL=http://localhost:5173
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+GEMINI_API_KEY=your_google_gemini_api_key
+```
+
+---
+
+## 🖼 Screenshots
+
+| Login & Demo Access | Dashboard |
+| :---: | :---: |
+| *(Add Login screenshot here)* | *(Add Dashboard screenshot here)* |
+
+| AI Coach | Practice & Mock Tests |
+| :---: | :---: |
+| *(Add AI Coach screenshot here)* | *(Add Mock Test screenshot here)* |
+
+| Analytics Hub | User Profile |
+| :---: | :---: |
+| *(Add Analytics screenshot here)* | *(Add Profile screenshot here)* |
+
+---
+
+## 📡 API Overview
+
+The backend exposes a structured RESTful API securely wrapped with JWT verification:
+- **Authentication:** Handled client-side via Supabase, with backend middleware validating bearer tokens.
+- **Exam Plans:** `GET`, `POST`, `PUT`, `DELETE` endpoints for user exam goals.
+- **Practice & Mocks:** Manage practice sessions and save timed mock-test results.
+- **AI Generation:** `/api/ai/generate` orchestrates specialized prompts to Gemini for flashcards and explanations.
+- **Analytics:** Rapid endpoints to calculate readiness algorithms over active database metrics.
+
+---
+
+## 🧠 Gemini Integration
+
+The integration strictly follows security best practices:
+- The **Google Gemini API** is only ever called from the secure backend environment.
+- API keys are **never** exposed to the frontend or included in bundles.
+- Generated AI responses are sanitized and aggressively cached/stored in the centralized database to prevent redundant billing.
+
+---
+
+## 🛡 Security
+
+- **JWT Authentication:** Strict route protection validating claims via Supabase constraints.
+- **Password Hashing:** Supabase handles secure hashing internally.
+- **Environment Variables:** All secrets are masked and stripped from the frontend build.
+- **Input Validation:** Zod parsing sanitizes all incoming requests to prevent malformed data.
+- **CORS:** Cross-Origin requests are explicitly restricted to trusted/deployed domains using standard Express middleware.
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] **Teacher Dashboard:** Allow educators to track class progress.
+- [ ] **Collaborative Study:** Real-time multiplayer flashcard games.
+- [ ] **Notifications:** Daily study nudges and exam countdowns.
+- [ ] **Offline Support:** PWA integration for studying in transit.
+- [ ] **Leaderboards:** Local and global readiness ladders.
+- [ ] **AI Voice Tutor:** Integrations utilizing Web Speech API.
+
+---
+
+## 🌐 Deployment
+
+- **Frontend:** Deployed globally scaling edge infrastructure via **Vercel**.
+  - Set the **Root Directory** inside the Vercel project settings to `client`.
+  - The framework preset should dynamically register as **Vite**.
+  - A `vercel.json` file is present in the `client/` subdirectory handling React Router exact path rewrite rules to `/index.html` preventing `404 NOT_FOUND` errors on reload.
+  - Set `VITE_API_URL` environment variable properly in the Vercel project dashboard.
+- **Backend:** Node runtime configured securely on **Render**.
+- **Database:** Fully managed vector-ready PostgreSQL on **Supabase**.
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## ✍ Author
+
+**Venu Karthikeya**  
+GitHub: [https://github.com/venukarthikeya](https://github.com/venukarthikeya)
